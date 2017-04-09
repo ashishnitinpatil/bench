@@ -328,6 +328,15 @@ def parse_commandline_args():
 
 	parser.add_argument('--repo-url', dest='repo_url', help='Clone bench from the given url')
 
+	parser.add_argument('--install-erpnext', dest='install_erpnext', action='store_true', default=False,
+		help='Install ERPNext app')
+
+	parser.add_argument('--frappe-url', dest='frappe_repo_url', default='https://github.com/frappe/frappe',
+		help='Install frappe from the given url')
+
+	parser.add_argument('--erpnext-url', dest='erpnext_repo_url', default='https://github.com/frappe/erpnext',
+		help='Install erpnext from the given url')
+
 	# To enable testing of script using Travis, this should skip the prompt
 	parser.add_argument('--run-travis', dest='run_travis', action='store_true', default=False,
 		help=argparse.SUPPRESS)

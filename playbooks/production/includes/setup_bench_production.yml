@@ -19,18 +19,20 @@
     - name: Check ERPNext App exists
       stat: path="{{ bench_path }}/apps/erpnext"
       register: app
+      when: install_erpnext
 
     # In case we are re-running the script, we would like to skip getting ERPNext App
     - name: Get-app erpnext app
-      command: bench get-app erpnext https://github.com/frappe/erpnext.git --branch {{ branch }}
+      command: bench get-app erpnext {{ erpnext_repo_url }} --branch {{ branch }}
       args:
         chdir: '{{ bench_path }}'
-      when: not app.stat.exists
+      when: install_erpnext and not app.stat.exists
 
     - name: Install erpnext app
       command: bench --site {{ site }} install-app erpnext
       args:
         chdir: '{{ bench_path }}'
+      when: install_erpnext
 
     - name: Change permissions for frappe home folder
       become: yes
